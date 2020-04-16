@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using HotChocolate;
 
-namespace Domotech.iRemote.WebService.Graph
+namespace Domotech.iRemote.WebService.GraphApi
 {
     internal sealed class ErrorFilter : IErrorFilter
     {

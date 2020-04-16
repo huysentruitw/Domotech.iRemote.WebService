@@ -1,4 +1,4 @@
-namespace Domotech.iRemote.WebService.Graph
+namespace Domotech.iRemote.WebService.GraphApi
 {
     public sealed class Mutation
     {

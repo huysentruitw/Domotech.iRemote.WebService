@@ -1,6 +1,6 @@
 using Domotech.iRemote.WebService.Services;
 
-namespace Domotech.iRemote.WebService.Graph.OutputTypes
+namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
 {
     public sealed class ConnectionDetails
     {

@@ -1,8 +1,8 @@
-using Domotech.iRemote.WebService.Graph.OutputTypes;
+using Domotech.iRemote.WebService.GraphApi.OutputTypes;
 using Domotech.iRemote.WebService.Services;
 using HotChocolate;
 
-namespace Domotech.iRemote.WebService.Graph
+namespace Domotech.iRemote.WebService.GraphApi
 {
     public sealed class Query
     {

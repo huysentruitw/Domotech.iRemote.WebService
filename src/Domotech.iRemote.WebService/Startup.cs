@@ -1,4 +1,4 @@
-using Domotech.iRemote.WebService.Graph;
+using Domotech.iRemote.WebService.GraphApi;
 using Domotech.iRemote.WebService.Hubs;
 using Domotech.iRemote.WebService.Services;
 using HotChocolate;

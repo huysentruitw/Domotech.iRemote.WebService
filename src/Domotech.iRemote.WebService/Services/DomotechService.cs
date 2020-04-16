@@ -35,6 +35,8 @@ namespace Domotech.iRemote.WebService.Services
                     Connect();
                 }
 
+                _client.Poll();
+
                 await Task.Delay(1000);
             }
 

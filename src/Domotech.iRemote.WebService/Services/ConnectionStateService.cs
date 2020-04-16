@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Domotech.iRemote.WebService.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,24 +24,24 @@ namespace Domotech.iRemote.WebService.Services
         public int GetDownloadProgressInPercent()
             => _downloadProgressInPercent;
 
-        public void UpdateState(ConnectionState state)
+        public async Task UpdateState(ConnectionState state)
         {
             _state = state;
-            NotifyWebClients();
+            await NotifyWebClients();
         }
 
-        public void UpdateStateAndDownloadProgress(ConnectionState state, int downloadStateProgressInPercent)
+        public async Task UpdateStateAndDownloadProgress(ConnectionState state, int downloadStateProgressInPercent)
         {
             _state = state;
             _downloadProgressInPercent = downloadStateProgressInPercent;
-            NotifyWebClients();
+            await NotifyWebClients();
         }
 
-        private void NotifyWebClients()
+        private async Task NotifyWebClients()
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
             IHubContext<ConnectionStateHub> hubContext = scope.ServiceProvider.GetService<IHubContext<ConnectionStateHub>>();
-            hubContext.Clients.All.SendAsync("Changed", new
+            await hubContext.Clients.All.SendAsync("Changed", new
             {
                 State = _state,
                 DownloadProgressInPercent = _downloadProgressInPercent,
@@ -54,9 +55,9 @@ namespace Domotech.iRemote.WebService.Services
 
         int GetDownloadProgressInPercent();
 
-        void UpdateState(ConnectionState state);
+        Task UpdateState(ConnectionState state);
 
-        void UpdateStateAndDownloadProgress(ConnectionState state, int downloadStateProgressInPercent);
+        Task UpdateStateAndDownloadProgress(ConnectionState state, int downloadStateProgressInPercent);
     }
 
     public enum ConnectionState

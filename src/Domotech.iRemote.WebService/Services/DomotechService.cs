@@ -53,27 +53,27 @@ namespace Domotech.iRemote.WebService.Services
             _client.ClientStatus += Handle_ClientStatus;
         }
 
-        private void Handle_ClientStatus(object sender, ClientStatusEventArgs e)
+        private async void Handle_ClientStatus(object sender, ClientStatusEventArgs e)
         {
             switch (e.Status)
             {
             case ClientStatusValue.Connecting:
-                _connectionStateService.UpdateState(ConnectionState.Connecting);
+                await _connectionStateService.UpdateState(ConnectionState.Connecting);
                 break;
             case ClientStatusValue.Downloading:
-                _connectionStateService.UpdateStateAndDownloadProgress(ConnectionState.Downloading, downloadStateProgressInPercent: e.Percent);
+                await _connectionStateService.UpdateStateAndDownloadProgress(ConnectionState.Downloading, downloadStateProgressInPercent: e.Percent);
                 break;
             case ClientStatusValue.Ready:
-                _connectionStateService.UpdateState(ConnectionState.Ready);
+                await _connectionStateService.UpdateState(ConnectionState.Ready);
                 break;
             case ClientStatusValue.ConnectionLost:
-                _connectionStateService.UpdateState(ConnectionState.ConnectionLost);
+                await _connectionStateService.UpdateState(ConnectionState.ConnectionLost);
                 break;
             case ClientStatusValue.Disconnected:
-                _connectionStateService.UpdateState(ConnectionState.Disconnected);
+                await _connectionStateService.UpdateState(ConnectionState.Disconnected);
                 break;
             default:
-                _connectionStateService.UpdateState(ConnectionState.Unknown);
+                await _connectionStateService.UpdateState(ConnectionState.Unknown);
                 break;
             }
         }

@@ -1,4 +1,6 @@
 using Domotech.iRemote.WebService.Graph;
+using Domotech.iRemote.WebService.Hubs;
+using Domotech.iRemote.WebService.Services;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +23,11 @@ namespace Domotech.iRemote.WebService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DomotechServiceOptions>(Configuration.GetSection("DomotechServer"));
+            services.AddHostedService<DomotechService>();
+
+            services.AddSingleton<IConnectionStateService, ConnectionStateService>();
+
             services.AddErrorFilter<ErrorFilter>();
 
             services.AddGraphQL(serviceProvider => SchemaBuilder.New()
@@ -28,6 +35,8 @@ namespace Domotech.iRemote.WebService
                 .AddMutationType<Mutation>()
                 .AddServices(serviceProvider)
                 .Create());
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +50,12 @@ namespace Domotech.iRemote.WebService
             app.UseHttpsRedirection();
 
             app.UseGraphQL("/api/graph");
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ConnectionStateHub>("/api/hubs/connection");
+            });
         }
     }
 }

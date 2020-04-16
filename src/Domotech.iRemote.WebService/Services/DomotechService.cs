@@ -7,26 +7,20 @@ namespace Domotech.iRemote.WebService.Services
 {
     internal sealed class DomotechService : BackgroundService
     {
-        private readonly DomotechServiceOptions _options;
+        private readonly IClient _client;
         private readonly IConnectionStateService _connectionStateService;
-
-        private readonly Client _client = new Client();
+        private readonly DomotechServiceOptions _options;
 
         public DomotechService(
-            IOptions<DomotechServiceOptions> options,
-            IConnectionStateService connectionStateService)
+            IClient client,
+            IConnectionStateService connectionStateService,
+            IOptions<DomotechServiceOptions> options)
         {
+            _client = client;
+            _connectionStateService = connectionStateService;
             _options = options.Value;
 
             WireClientEvents();
-            _connectionStateService = connectionStateService;
-        }
-
-        public override void Dispose()
-        {
-            _client.Dispose();
-
-            base.Dispose();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

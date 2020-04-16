@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domotech.iRemote.WebService.Tests", "tests\Domotech.iRemote.WebService.Tests\Domotech.iRemote.WebService.Tests.csproj", "{E637D98B-5207-45FC-998E-9A69AC7CCBBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{52FE505C-5AC7-4834-8622-1A78978100BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52FE505C-5AC7-4834-8622-1A78978100BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52FE505C-5AC7-4834-8622-1A78978100BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E637D98B-5207-45FC-998E-9A69AC7CCBBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E637D98B-5207-45FC-998E-9A69AC7CCBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E637D98B-5207-45FC-998E-9A69AC7CCBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E637D98B-5207-45FC-998E-9A69AC7CCBBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

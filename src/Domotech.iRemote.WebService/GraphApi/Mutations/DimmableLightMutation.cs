@@ -26,13 +26,7 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
             Items.Dimmer dimmer = client.GetDimmer(_id);
             bool newState = state ?? !dimmer.State;
             dimmer.State = newState;
-            return new DimmableLight
-            {
-                Id = dimmer.Index,
-                Name = dimmer.Name,
-                State = newState,
-                BrightnessInPercent = dimmer.Value,
-            };
+            return DimmableLight.Create(dimmer).WithState(newState);
         }
 
         public DimmableLight IncreaseBrightness([Service] IClient client)
@@ -48,13 +42,9 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
             if (newBrightness > 100) newBrightness = 100;
             if (newBrightness < 0) newBrightness = 0;
             dimmer.Value = (byte)newBrightness;
-            return new DimmableLight
-            {
-                Id = dimmer.Index,
-                Name = dimmer.Name,
-                State = newBrightness > 0,
-                BrightnessInPercent = newBrightness,
-            };
+            return DimmableLight.Create(dimmer)
+                .WithState(newBrightness > 0)
+                .WithBrightnessInPercent(newBrightness);
         }
     }
 }

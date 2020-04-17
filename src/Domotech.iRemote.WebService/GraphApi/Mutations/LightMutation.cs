@@ -26,12 +26,7 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
             Items.Light light = client.GetLight(_id);
             bool newState = state ?? !light.State;
             light.State = newState;
-            return new Light
-            {
-                Id = light.Index,
-                Name = light.Name,
-                State = newState,
-            };
+            return Light.Create(light).WithState(newState);
         }
     }
 }

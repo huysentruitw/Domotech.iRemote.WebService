@@ -2,8 +2,19 @@ namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
 {
     public sealed class Shutter
     {
-        public int Id { get; set; }
+        private Shutter(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
 
-        public string Name { get; set; }
+        public int Id { get; }
+
+        public string Name { get; }
+
+        internal static Shutter Create(Items.Shutter shutter)
+            => new Shutter(
+                id: shutter.Index,
+                name: shutter.Name);
     }
 }

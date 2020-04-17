@@ -16,12 +16,7 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
         {
             Items.Scenario scenario = client.GetScenario(_id);
             scenario.Execute();
-            return new Scene
-            {
-                Id = scenario.Index,
-                Name = scenario.Name,
-                IsExecuting = true,
-            };
+            return Scene.Create(scenario).WithIsExecuting(true);
         }
     }
 }

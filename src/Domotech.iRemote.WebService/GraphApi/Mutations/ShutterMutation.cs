@@ -16,33 +16,21 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
         {
             Items.Shutter shutter = client.GetShutter(_id);
             shutter.Open();
-            return new Shutter
-            {
-                Id = shutter.Index,
-                Name = shutter.Name,
-            };
+            return Shutter.Create(shutter);
         }
 
         public Shutter Close([Service] IClient client)
         {
             Items.Shutter shutter = client.GetShutter(_id);
             shutter.Close();
-            return new Shutter
-            {
-                Id = shutter.Index,
-                Name = shutter.Name,
-            };
+            return Shutter.Create(shutter);
         }
 
         public Shutter Stop([Service] IClient client)
         {
             Items.Shutter shutter = client.GetShutter(_id);
             shutter.Stop();
-            return new Shutter
-            {
-                Id = shutter.Index,
-                Name = shutter.Name,
-            };
+            return Shutter.Create(shutter);
         }
     }
 }

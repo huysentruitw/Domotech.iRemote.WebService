@@ -26,12 +26,7 @@ namespace Domotech.iRemote.WebService.GraphApi.Mutations
             Items.Socket socket = client.GetSocket(_id);
             bool newState = state ?? !socket.State;
             socket.State = newState;
-            return new Socket
-            {
-                Id = socket.Index,
-                Name = socket.Name,
-                State = newState,
-            };
+            return Socket.Create(socket).WithState(newState);
         }
     }
 }

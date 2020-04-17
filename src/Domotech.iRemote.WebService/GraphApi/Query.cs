@@ -28,5 +28,8 @@ namespace Domotech.iRemote.WebService.GraphApi
 
         public Scene[] Scenes([Service] IClient client)
             => client.Scenarios().Select(Scene.Create).ToArray();
+
+        public Thermostat[] Thermostats([Service] IClient client)
+            => client.Rooms().Select(Thermostat.Create).ToArray();
     }
 }

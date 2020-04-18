@@ -59,63 +59,19 @@ namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
                     RoomControlMode.AircoTemp => ThermostatMode.AircoTemperature,
                     RoomControlMode.AircoContinu => ThermostatMode.AircoContinuous,
                     RoomControlMode.Auto => ThermostatMode.Curve,
-                    _ => throw new NotImplementedException($"Unknown mode {room.ControlMode}"),
+                    _ => throw new InvalidOperationException($"Unknown mode {room.ControlMode}"),
                 },
                 curve: room.CurveSteps.Select(ThermostatCurveStep.Create).ToArray());
-    }
 
-    public enum ThermostatMode
-    {
-        Off,
-        DayTemperature,
-        NightTemperature,
-        AircoTemperature,
-        AircoContinuous,
-        Curve,
-    }
-
-    public sealed class ThermostatCurveStep
-    {
-        private ThermostatCurveStep(
-            int id,
-            DayOfWeek dayOfWeek,
-            int hour,
-            int minute,
-            decimal targetTemperature)
-        {
-            Id = id;
-            DayOfWeek = dayOfWeek;
-            Hour = hour;
-            Minute = minute;
-            TargetTemperature = targetTemperature;
-        }
-
-        public int Id { get; }
-
-        public DayOfWeek DayOfWeek { get; }
-
-        public int Hour { get; }
-
-        public int Minute { get; }
-
-        public decimal TargetTemperature { get; }
-
-        internal static ThermostatCurveStep Create(Items.CurveStep step)
-            => new ThermostatCurveStep(
-                id: step.Index,
-                dayOfWeek: step.Day switch
-                {
-                    0 => DayOfWeek.Monday,
-                    1 => DayOfWeek.Tuesday,
-                    2 => DayOfWeek.Wednesday,
-                    3 => DayOfWeek.Thursday,
-                    4 => DayOfWeek.Friday,
-                    5 => DayOfWeek.Saturday,
-                    6 => DayOfWeek.Sunday,
-                    _ => throw new InvalidOperationException($"Unknown day of week value: {step.Day}"),
-                },
-                hour: step.Hour,
-                minute: step.Minute,
-                targetTemperature: (decimal)step.Temperature);
+        internal Thermostat WithMode(ThermostatMode mode)
+            => new Thermostat(
+                id: Id,
+                name: Name,
+                currentTemperature: CurrentTemperature,
+                targetDayTemperature: TargetDayTemperature,
+                targetNightTemperature: TargetNightTemperature,
+                targetAircoTemperature: TargetAircoTemperature,
+                mode: mode,
+                curve: Curve.Select(ThermostatCurveStep.Create).ToArray());
     }
 }

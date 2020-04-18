@@ -16,7 +16,7 @@ namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
             Name = name;
             State = state;
             IsMuted = isMuted;
-            AudioSourceId = audioSourceId,
+            AudioSourceId = audioSourceId;
             Volume = volume;
             Treble = treble;
             Bass = bass;

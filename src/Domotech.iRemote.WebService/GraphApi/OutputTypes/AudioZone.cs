@@ -1,3 +1,5 @@
+using HotChocolate;
+
 namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
 {
     public sealed class AudioZone
@@ -31,6 +33,9 @@ namespace Domotech.iRemote.WebService.GraphApi.OutputTypes
         public bool IsMuted { get; }
 
         public int AudioSourceId { get; }
+
+        public AudioSource AudioSource([Service] IClient client)
+            => OutputTypes.AudioSource.Create(client.GetAudioSource(AudioSourceId));
 
         public int Volume { get; }
 
